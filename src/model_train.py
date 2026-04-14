@@ -16,7 +16,7 @@ def train_nasa_model():
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    print("🧠 Training Random Forest (Failure Prediction)...")
+    print("Training Random Forest model for failure prediction...")
     rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
     rf_model.fit(X_scaled, y)
 
@@ -29,7 +29,7 @@ def train_nasa_model():
     joblib.dump(iso_model, "models/anomaly.pkl")
     joblib.dump(scaler, "models/scaler.pkl")
     joblib.dump(features_list, "models/features.pkl")
-    print("✅ Pipeline Finished! Models saved.")
+    print("Pipeline finished. Models saved.")
 
 if __name__ == "__main__":
     train_nasa_model()

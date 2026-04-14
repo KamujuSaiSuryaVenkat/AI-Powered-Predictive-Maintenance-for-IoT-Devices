@@ -16,7 +16,7 @@ def send_discord_alert(engine_id, cycle, risk_type, probability):
 
     payload = {
         "embeds": [{
-            "title": "🚨 DEEP-GUARD: CRITICAL TELEMETRY ALERT",
+            "title": "Critical Engine Health Alert",
             "description": f"**Engine ID `{engine_id}`** has crossed the critical risk threshold.",
             "color": color,
             "fields": [
@@ -25,12 +25,12 @@ def send_discord_alert(engine_id, cycle, risk_type, probability):
                 {"name": "AI Confidence", "value": f"{probability*100:.1f}%", "inline": True},
                 {"name": "System Timestamp", "value": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")), "inline": False}
             ],
-            "footer": {"text": "AI Predictive Maintenance Engine • Automated Dispatch"}
+            "footer": {"text": "AI Predictive Maintenance System • Automated Dispatch"}
         }]
     }
 
     try:
         requests.post(WEBHOOK_URL, json=payload)
-        print(f"✅ Live alert dispatched for Engine {engine_id}!")
+        print(f"Live alert dispatched for engine {engine_id}.")
     except Exception as e:
         print(f"❌ Webhook failed: {e}")

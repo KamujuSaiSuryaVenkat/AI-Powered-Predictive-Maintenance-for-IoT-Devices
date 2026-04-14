@@ -12,7 +12,7 @@ from src.anomaly import detect_anomaly
 from src.logger import log_data, init_log
 from src.alert_system import send_discord_alert
 # --- Futuristic Neon UI Styling ---
-st.set_page_config(layout="wide", page_title="DeepGuard Predictor")
+st.set_page_config(layout="wide", page_title="Aircraft Engine Health Monitor")
 st.markdown("""
     <style>
     .stApp { background-color: #0E1117; }
@@ -21,7 +21,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("⚡ DEEP-GUARD: Jet Engine Telemetry")
+st.title("Aircraft Engine Health Monitoring Dashboard")
 
 init_log()
 data_gen = generate_sensor_data()
@@ -30,18 +30,18 @@ chart_data = pd.DataFrame(columns=["cycle"] + features)
 col1, col2 = st.columns([1, 1.5])
 
 with col1:
-    st.subheader("📡 Live Stream")
+    st.subheader("Live Sensor Stream")
     data_placeholder = st.empty()
     alert_placeholder = st.empty()
 
 with col2:
-    st.subheader("🧠 Risk Assessment")
+    st.subheader("Failure Risk Assessment")
     gauge_placeholder = st.empty()
 
-st.subheader("📉 Advanced Engine Telemetry")
+st.subheader("Engine Telemetry Overview")
 
 # Create Interactive Tabs
-tab1, tab2, tab3 = st.tabs(["🔥 Compressors (Temperature)", "🌪️ Turbines (Pressure)", "⚙️ Mechanical (Vibration & Speed)"])
+tab1, tab2, tab3 = st.tabs(["Compressor Temperature", "Turbine Pressure", "Mechanical Health"])
 
 with tab1:
     chart_temp = st.empty()
@@ -74,19 +74,19 @@ for _ in range(250):
     data_placeholder.json({"Cycle": data["cycle"], "S2": data["s2"], "S3": data["s3"], "S4": data["s4"]})
 
     if anomaly == 1:
-        alert_placeholder.error("🚨 UNKNOWN ANOMALY DETECTED IN TELEMETRY")
+        alert_placeholder.error("Potential anomaly detected in telemetry")
         if not alert_dispatched:
-            send_discord_alert(data["id"], data["cycle"], "ISOLATION FOREST ANOMALY", prob)
+            send_discord_alert(data["id"], data["cycle"], "Isolation Forest anomaly", prob)
             alert_dispatched = True
             
     elif pred == 1:
-        alert_placeholder.warning("⚠️ HIGH RISK: PREDICTIVE FAILURE IMMINENT")
+        alert_placeholder.warning("Elevated failure risk detected")
         if not alert_dispatched:
-            send_discord_alert(data["id"], data["cycle"], "RANDOM FOREST PREDICTION", prob)
+            send_discord_alert(data["id"], data["cycle"], "Random Forest prediction", prob)
             alert_dispatched = True
             
     else:
-        alert_placeholder.success("🟢 SYSTEM STABLE")
+        alert_placeholder.success("System status: stable")
 
     # Neon Plotly Gauge
     gauge = go.Figure(go.Indicator(

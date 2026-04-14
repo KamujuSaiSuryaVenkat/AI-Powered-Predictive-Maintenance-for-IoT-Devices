@@ -19,5 +19,5 @@ def engineer_features(df):
     X = df[features]
     y = df['failure']
     
-    print("⚙️ Feature Engineering complete: RUL calculated and target labels created.")
+    print("Feature engineering complete: RUL calculated and target labels created.")
     return X, y, features

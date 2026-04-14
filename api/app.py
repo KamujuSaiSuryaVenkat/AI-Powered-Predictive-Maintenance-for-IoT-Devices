@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return {"message": "✅ DeepGuard API is running"}
+    return {"message": "Aircraft engine monitoring API is running"}
 
 @app.route("/predict", methods=["POST"])
 def predict_api():
@@ -22,7 +22,7 @@ def predict_api():
     pred, prob = predict(data)
     
     # Simple alert logic if you haven't created alert_system.py yet
-    alert = "⚠️ HIGH RISK" if pred == 1 else "✅ NORMAL"
+    alert = "Elevated risk" if pred == 1 else "Nominal"
 
     return jsonify({
         "prediction": int(pred),
